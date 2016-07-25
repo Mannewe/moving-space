@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{A0CE21B0-D51C-178F-841C-6F785FCA7B07}") = "moving shit", "Assembly-CSharp.csproj", "{A70EFBC9-0344-BB77-B4A0-F278920B6234}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A70EFBC9-0344-BB77-B4A0-F278920B6234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A70EFBC9-0344-BB77-B4A0-F278920B6234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A70EFBC9-0344-BB77-B4A0-F278920B6234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A70EFBC9-0344-BB77-B4A0-F278920B6234}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
