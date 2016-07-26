@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour {
 	Text livesText;
 
 
+
 	void Awake()
 	{
 		anim = gameObject.GetComponent<Animator> ();

@@ -3,11 +3,15 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
+	GameManager gm;
 	Rigidbody2D bullet;
 	GameObject player;
+	GameObject deathparticles;
+
 	float input;
 	float speed = 6;
 	public float lives = 3;
+	public GameObject deathParticle;
 
 	public Rigidbody2D projectile;
 	public float projectileSpeed;
@@ -16,26 +20,31 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gm = GameObject.Find ("Main Camera").GetComponent<GameManager> ();
 		player = GameObject.FindWithTag ("Player");
-		InvokeRepeating ("ChangeDistance", 5, 5f);
+		InvokeRepeating ("ChangeDistance", 2, 2f);
 		InvokeRepeating ("Shoot", 1,1f);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 		if(player != null){
-		var playerPos = Camera.main.ScreenToWorldPoint (player.transform.position);
-		Quaternion rot = Quaternion.LookRotation (player.transform.position - transform.position, Vector3.back);
+			
+			var mousePosition = Camera.main.ScreenToWorldPoint (player.transform.position);
+			Quaternion rot = Quaternion.LookRotation (transform.forward, player.transform.position - transform.position);
 
-		transform.rotation = rot;
-		transform.eulerAngles = new Vector3 (0, 0,  transform.eulerAngles.z);
-		GetComponent<Rigidbody2D> ().angularVelocity = 0;
+			transform.rotation = rot;
+			transform.eulerAngles = new Vector3 (0, 0, transform.eulerAngles.z);
+			GetComponent<Rigidbody2D> ().angularVelocity = 0;
 
 		GetComponent<SpringJoint2D> ().connectedBody = player.GetComponent<Rigidbody2D> ();
 
 			//Kill if no lives
-			if (lives <= 0)
+			if (lives <= 0) {
+				gm.NrOfEnemies ();
+				deathparticles = (GameObject)Instantiate (deathParticle, transform.position, Quaternion.identity);
 				Destroy (gameObject);
+			}
 		}
 
 
@@ -43,7 +52,7 @@ public class Enemy : MonoBehaviour {
 
 	void ChangeDistance()
 	{
-		GetComponent<SpringJoint2D> ().distance = Random.Range (2,20);
+		GetComponent<SpringJoint2D> ().distance = Random.Range (2,10);
 	}
 
 	void Shoot()
