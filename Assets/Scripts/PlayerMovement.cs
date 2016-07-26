@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public bool shooter = false;
 	Animator anim;
 	float input;
 	public float speed;
@@ -12,14 +14,17 @@ public class PlayerMovement : MonoBehaviour {
 	float currentSpeed;
 	float horizontal;
 	float vertical;
+	public float lives = 5;
 	public Vector3 currentPos;
 	public Rigidbody2D projectile;
 	Rigidbody2D bullet;
+	Text livesText;
 
 
 	void Awake()
 	{
-		anim = gameObject.GetComponent<Animator> ();	
+		anim = gameObject.GetComponent<Animator> ();
+		livesText = GameObject.Find ("Text").GetComponent<Text>();
 	}
 
 	void Update()
@@ -42,6 +47,12 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else
 			speed = 40;
+
+		if (lives <= 0) {
+			Destroy (gameObject);
+			livesText.text = "DEAD";
+		} else
+			livesText.text = "" + lives;
 	}
 
 	void FixedUpdate()
@@ -66,5 +77,10 @@ public class PlayerMovement : MonoBehaviour {
 			bullet.velocity = transform.up * (projectileSpeed + 7);
 		else if(Input.GetKey(KeyCode.LeftShift))
 			bullet.velocity = transform.up * (projectileSpeed + 17);
+	}
+
+	public void LooseLife()
+	{
+		lives--;
 	}
 }

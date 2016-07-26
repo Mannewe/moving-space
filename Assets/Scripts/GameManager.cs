@@ -7,10 +7,15 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemy;
 	Rigidbody2D playerInstance;
 	GameObject enemyInstance;
+
+	PlayerMovement playerScript;
+	PlayerMovement enemyScript;
+
 	// Use this for initialization
 	void Awake () {
 		playerInstance = (Rigidbody2D) Instantiate (player, new Vector3(0,0,0), Quaternion.identity);
 		GetComponent<SpringJoint2D> ().connectedBody = playerInstance;
+		
 
 		for(int i = 0; i < level; i++)
 			enemyInstance = (GameObject) Instantiate (enemy, RandomSpawn() , transform.rotation);
@@ -24,4 +29,5 @@ public class GameManager : MonoBehaviour {
 		Vector3 randomSpawn = new Vector3 (xPos, yPos, 0);
 		return randomSpawn;
 	}
+		
 }

@@ -4,6 +4,10 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
 	bool leftShip = false;
+	float inpact = 10;
+
+	float enemyLives;
+
 	public BoxCollider2D playerCollider;
 	// Use this for initialization
 	void Awake () 
@@ -13,9 +17,10 @@ public class Bullet : MonoBehaviour {
 		
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag != "Player") 
+		if (other.gameObject.tag == "Enemy") 
 		{
-			other.gameObject.SetActive (false);
+			other.gameObject.GetComponent<Rigidbody2D> ().AddForce (transform.up * inpact);
+			other.gameObject.GetComponent<Enemy> ().LooseLife();
 			DestroySelf ();
 		}
 	}
