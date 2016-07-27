@@ -16,6 +16,10 @@ public class Enemy : MonoBehaviour {
 	public Rigidbody2D projectile;
 	public float projectileSpeed;
 
+	float randomDirection;
+
+	bool strafe = true;
+
 
 
 	// Use this for initialization
@@ -45,6 +49,9 @@ public class Enemy : MonoBehaviour {
 				deathparticles = (GameObject)Instantiate (deathParticle, transform.position, Quaternion.identity);
 				Destroy (gameObject);
 			}
+
+			if (strafe)
+				GetComponent<Rigidbody2D> ().velocity = transform.right * randomDirection/2;
 		}
 
 
@@ -52,7 +59,9 @@ public class Enemy : MonoBehaviour {
 
 	void ChangeDistance()
 	{
+		randomDirection = Random.Range(-10,10);
 		GetComponent<SpringJoint2D> ().distance = Random.Range (2,10);
+		strafe = !strafe;
 	}
 
 	void Shoot()
